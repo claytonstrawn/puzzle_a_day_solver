@@ -4,6 +4,20 @@ from matplotlib.patches import Rectangle
 from Piece import Piece
 from constants import months,default_board,colors_dict
 
+"""
+summary: Plot a matrix on an axis in a particular color, square by square. This can 
+         either be a Piece matrix or a Board matrix (usually the default)
+
+inputs: ax: An Axis object instance.
+        matrix: NDArray, the array of 1s and 0s representing a Piece or Board
+        x: int, row of top left corner.
+        y: int, column of top left corner.
+        color: string or other Color indicator, color for this matrix. 
+        hatch: string, '/' if the piece is to be hatched, else None.
+                (Pieces are hatched if they have to be flipped.)
+        
+outputs: None
+"""
 def add_matrix(ax,matrix,x,y,color,hatch):
     boxes = []
     for i in range(len(matrix)):
@@ -14,7 +28,14 @@ def add_matrix(ax,matrix,x,y,color,hatch):
     pc = PatchCollection(boxes, facecolor=color, alpha=0.7,
                      edgecolor='black',hatch = hatch)
     ax.add_collection(pc)
-    
+
+"""
+summary: Fill in all the months and days in the appropriate place in the Board, on an Axis
+
+inputs: ax: An Axis object instance.
+        
+outputs: None
+"""
 def fill_in_text(ax):
     hoffset = 0.4
     voffset = 0.3
@@ -27,7 +48,15 @@ def fill_in_text(ax):
         day_text = str(day+1)
         ax.text(day_y+hoffset,6-day_x+voffset,day_text)
 
-    
+"""
+summary: Plot a Board instance using matplotlib, including call to show().
+
+inputs: board: Board instance. May have Pieces or not.
+        sol_name: string or None, add this string to the title if not None
+                  It's added on as a named solution (usually a number)
+        
+outputs: None
+"""
 def plot_board(board,sol_name = None):
     ax = plt.gca()
     fill_in_text(ax)
