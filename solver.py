@@ -13,11 +13,10 @@ inputs: date: tuple, (month: string, fullname month, day: int day of month). Or 
         board: Board, a Board with another date. One of date or board must be specified. Can be partially filled.
         allow_flips: bool, if True, then let flips be included in process, else exclude them.
         take_first: bool, if True, return the first successful Board. If False, return the list of all solution Boards.
-        use_saved_solutions: bool, if True, look up the solutions in the history. This is much, much faster. If False, 
-                             solve the board directly.
         verbose: bool, if True, print out the board each time.
         plot_solution: bool, if True, run plot_board on the first/only solution.
-        
+        archived_solutions: bool, if True, look up the solutions in the history. This is much, much faster. If False, 
+                             solve the board directly.
 outputs: solved Board or list of solved Boards
 """
 def solve_board(date=None,board=None,allow_flips = False,
