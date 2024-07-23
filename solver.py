@@ -3,6 +3,7 @@ from Board import Board
 from Piece import Piece
 from constants import no_flip,half_symmetry
 from plotting import plot_board
+import pickle
 
 """
 summary: Find a solution for a given Board or Date. Decide if you want to allow flips or not
@@ -20,12 +21,27 @@ inputs: date: tuple, (month: string, fullname month, day: int day of month). Or 
 outputs: solved Board or list of solved Boards
 """
 def solve_board(date=None,board=None,allow_flips = False,
-                take_first = True,verbose = False,plot_solution = True):
+                take_first = True,verbose = False,plot_solution = True,
+                archived_solutions = True):
     if board is None and date is not None:
         board = Board(date=date)
     if board is None and date is None:
         assert False, "One of board or date must be specified to solve."
-    output = solve_board_recursor(board,allow_flips,take_first,verbose)
+    if archived_solutions:
+        if not allow_flips:
+            out_name = 'archived_solutions/noflips_full_solutions.pickle'
+        else:
+            out_name = 'archived_solutions/flips_full_solutions.pickle'
+        with open(out_name, 'rb') as dbfile:
+            try:
+                output = pickle.load(dbfile)[date][0]
+            except AttributeError:
+                print('Sols not loaded, you need to import Board.Board or turn off archived solutions')
+                return None
+            if len(output) == 0:
+                output = None
+    else:
+        output = solve_board_recursor(board,allow_flips,take_first,verbose)
     flip_str = '(without flips)' if not allow_flips else '(with flips)'
     if output is None:
         #no outputs are found for this Board. Possibly because the Board is set up weird, or 
