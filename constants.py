@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 
 #This matrix represents the default shape of the Board. The 1s on the right are because there are only 6 months per row
 #and the 1s on the bottom are because there are 31 = 4*7 + 3 days per month so there are 4 extra slots.
-#total empty locations = 49 - 6 = 43, total pieces = 5*7 + 8 = 41, leaving 2 blanks (month and day)
+#total empty locations = 49 - 6 = 43, total pieces = 5*7 + 6 = 41, leaving 2 blanks (month and day)
 default_board = np.array([[0,0,0,0,0,0,1],\
                           [0,0,0,0,0,0,1],\
                           [0,0,0,0,0,0,0],\
